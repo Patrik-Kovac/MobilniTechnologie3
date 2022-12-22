@@ -35,9 +35,8 @@ class OverviewViewModel : ViewModel() {
     }
 
     private fun getMarsRealEstateProperties() {
-        _response.value = MarsApi.retrofitService.getProperties().enqueue(
-            object: Callback<String> {
+        MarsApi.retrofitService.getProperties().enqueue(
+            object: Callback<List<MarsProperty>> {
             })
-
     }
 }
