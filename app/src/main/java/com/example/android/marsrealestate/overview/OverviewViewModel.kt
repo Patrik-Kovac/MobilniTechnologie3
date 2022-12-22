@@ -35,8 +35,13 @@ class OverviewViewModel : ViewModel() {
     }
 
     private fun getMarsRealEstateProperties() {
-        MarsApi.retrofitService.getProperties().enqueue(
-            object: Callback<List<MarsProperty>> {
-            })
+        viewModelScope.launch {
+            try {
+                val listResult = MarsApi.retrofitService.getProperties()
+                _response.value = "Success: ${listResult.size} Mars properties retrieved"
+            } catch (e: Exception) {
+                _response.value = "Failure: ${e.message}"
+            }
+        }
     }
 }
